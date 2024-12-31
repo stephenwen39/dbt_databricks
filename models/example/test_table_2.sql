@@ -2,7 +2,9 @@
     materialized='table'  
 ) }}
 
-SELECT user_name, COUNT(1) AS cnt
+SELECT a.user_id, a.user_name, b.enrolled_subject
 FROM
-{{ ref('test_table_1') }}
-GROUP BY user_name
+{{ ref('test_table_1') }} AS a
+left join 
+{{ ref('test_table_3') }} AS b
+on a.user_id = b.user_id
